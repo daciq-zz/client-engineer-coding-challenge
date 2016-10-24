@@ -5,6 +5,21 @@
   "author": "Piotr Data <kontakt@piotrdata.pl> (http://piotrdata.pl/)",
   "license": "ISC",
   "private": true,
+  "scripts": {
+    "karma": "karma",
+    "build-js": "rollup -c tools/rollup/config.js",
+    "build-css": "node-sass --include-path node_modules/node-normalize-scss --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets src/css/scss -o src/css",
+    "build": "npm run build-js && npm run build-css",
+    "test": "karma start tools/karma/config.js || exit 0",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": ["src/js", "src/css/scss"],
+      "extensions": "js,scss",
+      "ignore": ["src/js/bundle.js"]
+    }
+  },  
   "devDependencies": {
     "chai": "^3.5.0",
     "karma": "^1.3.0",
