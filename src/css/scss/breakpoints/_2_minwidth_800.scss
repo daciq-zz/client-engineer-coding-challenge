@@ -1,0 +1,51 @@
+@media screen and (min-width: 800px){
+	.results-item{
+		@include display(flex);
+	}
+
+	.results-item-header{
+		padding-right: rem(170);
+	}
+
+	.results-item-meta{
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		padding: rem(20);
+		text-align: right;
+	}
+
+	.results-item-content{
+		width: 85%;
+		@include order(2);
+		padding-bottom: rem(70);
+	}
+
+	.results-item-poster{
+		width: 15%;
+		@include order(1);
+	}
+
+	.results-item-footer{
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.info-poster{
+		width: 25%;
+		float: left;
+		@include margin((-$base-gap) null null (-$base-gap));
+	}
+
+	.info-content{
+		width: 75%;
+		float: right;
+	}
+
+	.info-header{
+		@include margin((-$base-gap) (-$base-gap) $base-gap (-$base-gap));
+	}
+}

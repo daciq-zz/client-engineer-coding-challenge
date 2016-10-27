@@ -1,0 +1,25 @@
+@media screen and (max-width: 799px){
+   	html{
+			font-size: 12px;
+		}
+
+		.results-item-footer{
+			@include margin($base-gap null (-$base-gap) null);
+		}
+
+		.results-item-meta{
+			margin-top: rem(20);
+		}
+
+		.info-poster{
+			@include margin((-$base-gap) (-$base-gap) null (-$base-gap));
+		}
+
+		.info-header{
+			@include margin(null (-$base-gap) $base-gap (-$base-gap));
+		}
+
+		.cast-member{
+			width: 20%;
+		}
+}

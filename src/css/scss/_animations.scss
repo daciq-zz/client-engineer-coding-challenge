@@ -1,0 +1,7 @@
+@include keyframes(bounce) {
+	  0%, 100% {
+	    	@include transform(scale(0));
+	  } 50% {
+	    	@include transform(scale(1));
+	  }
+}

@@ -1,0 +1,24 @@
+@mixin appearance($value) {
+		-webkit-appearance: $value;
+		-moz-appearance: $value;
+		appearance: $value;
+}
+
+@mixin first-last-margin-disable{
+    &:first-child{
+        margin-top: 0;
+    }
+
+    &:last-child{
+        margin-bottom: 0;
+    }
+}
+
+@mixin background-gradient{
+		@include background(radial-gradient(rgba($brand-color, .1) 60%, rgba($foreground-color, .1) 100%), $foreground-color);
+}
+
+@include selection {
+    background-color: $brand-color;
+    color: $background-color;
+}
