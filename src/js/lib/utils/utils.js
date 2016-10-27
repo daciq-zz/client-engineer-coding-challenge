@@ -1,14 +1,12 @@
 'use strict';
 
-const expect = chai.expect;
-
+/**
+ * Common functions
+ * @type {object}
+ * @property {function(params: object): string} query - Returns query string
+ * @property {function(params: string): function} template - Returns template function
+ */
 const Utils = {
-  /**
-   * Returns query string
-   * @function
-   * @param {object} params - POJO object with property:value pairs
-   * @returns {string} query string 
-   */
   query(params = {}){
     var query = [];
 
@@ -18,12 +16,6 @@ const Utils = {
 
     return query.join('&');
   },
-  /**
-   * Returns template function
-   * @function
-   * @param {string} string - template string
-   * @returns {function}
-   */
   template(string){
     var tmpl = string;
 
