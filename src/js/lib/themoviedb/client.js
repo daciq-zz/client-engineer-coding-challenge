@@ -5,13 +5,29 @@ import Utils from '../utils/utils.js';
 
 const api_url = 'https://api.themoviedb.org/3/';
 
+/** Class representing MoviesDb CLient */
 class TheMovieDb {
+    /**
+    * Creates new
+    * @constructor
+    * @param {string} api_key
+    */
     constructor(api_key) {
       this.api_key = api_key;
     }
+    /**
+    * Prepares query string for sending request
+    * @function
+    * @param {object} params POJO object with property:value pairs
+    */
     prepareQuery(params){
       return Utils.query(Object.assign((this.api_key)?{'api_key': this.api_key}:{}, params));
     }
+    /**
+    * Prepares command for sending request
+    * @function
+    * @param {Array} command flat array with blocks of command
+    */
     prepareCommand(command = []){
       var filtered = command.filter(function(element, index, array){
         return (element !== null && element !== '');
@@ -19,6 +35,13 @@ class TheMovieDb {
 
       return filtered.join('/');
     }
+    /**
+    * Sends request
+    * @function
+    * @param {string} url - An url to loaded data
+    * @param {function} done - Function called on success
+    * @param {function} fail - Function called on failure
+    */
     send(url, done, fail){
       Ajax.request(url, {
           method: 'GET',
@@ -48,6 +71,14 @@ class TheMovieDb {
           }
       });
     }
+    /**
+    * Sends command to Movie DB
+    * @function
+    * @param {Array} command - An url to loaded data
+    * @param {object} params - POJO object with property:value pairs
+    * @param {function} done - Function called on success
+    * @param {function} fail - Function called on failure    *
+    */
     callCommand(command, params, done, fail){
       var url = api_url+this.prepareCommand(command)+'?'+this.prepareQuery(params);
 

@@ -6,6 +6,9 @@ function xhrEventCallBack(xhr, type, fnc, args){
   });
 }
 
+/**
+ * Utility to send ajax request
+ */
 const Ajax = {
   defaults: {
     async: true,
@@ -19,6 +22,13 @@ const Ajax = {
     onBeforeSend: function(xhr){},
     onAbort: function(xhr){}
   },
+  /**
+   * Get the red, green, and blue values of a color.
+   * @function
+   * @param {string} url - An url to loaded data
+   * @param {object} [options={}] - An url to loaded data
+   * @returns {XMLHttpRequest} Returns instance of xhr object
+   */
   request(url, options = {}){
     var o = Object.assign({}, this.defaults, options),
         xhr = new XMLHttpRequest(),
