@@ -303,6 +303,16 @@ a{
 	padding: rem(20);
 }
 
+.results-nothing{
+  font-weight: 700;
+  font-size: 7vw;
+  text-align: center;
+  height: calc(100vh - 4.375rem);
+  @include display(flex);
+	@include align-items(center);
+	@include justify-content(center);
+}
+
 .pagination{
 	@include padding(rem(30) null rem(30) null);
 	text-align: center;
