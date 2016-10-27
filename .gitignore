@@ -42,6 +42,10 @@ Thumbs.db
 # ignore Tools files
 reports/
 
+# ignore src files
+src/js/bundle.js
+src/css/style.css
+
 # -----------------------------------------------------------------
 # WHITELISTED
 # -----------------------------------------------------------------
