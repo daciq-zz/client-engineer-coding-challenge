@@ -9,7 +9,7 @@ Requirments
 
 Demo
 ------------
-[Link](http://piotrdata.pl/perform/)
+[Link](http://projekty.piotrdata.pl/perform/)
 
 Installation
 ------------
