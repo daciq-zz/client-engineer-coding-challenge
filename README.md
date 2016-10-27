@@ -7,6 +7,10 @@ Requirments
 [NodeJS](https://nodejs.org/)
 [NPM](https://www.npmjs.com/)
 
+Demo
+------------
+[Link](http://piotrdata.pl/perform/)
+
 Installation
 ------------
 
