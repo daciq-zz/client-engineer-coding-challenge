@@ -27,7 +27,7 @@ Run tests (coverage reports reside in **reports/coverage** directory)
 npm run test
 ```
 
-Build src files and documentation (additional files in **src** directory and **docs** directory are creted)
+Build src files and documentation (additional files in **src** directory and **docs** directory are created)
 ```bash
 npm run build
 ```
