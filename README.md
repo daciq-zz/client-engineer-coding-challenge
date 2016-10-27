@@ -1,7 +1,7 @@
 Client Engineer Coding Challenge
 ================================
 
-Simple **The Movie Db** search appliation based on VanillaJs. It allows to display and browse information about movies and tv series.
+Simple **The Movie Db** search application based on VanillaJs and HTML5. It allows to display and browse information about movies and tv series.
 
 Requirments
 -----------
