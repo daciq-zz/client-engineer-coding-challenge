@@ -9,17 +9,30 @@
     "karma": "karma",
     "build-js": "rollup -c tools/rollup/config.js",
     "build-css": "node-sass --include-path node_modules/node-normalize-scss --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets src/css/scss -o src/css",
-    "build": "npm run build-js && npm run build-css",
+    "build": "npm-run-all build-*",
+    "dist-html": "copyfiles -f src/index.html dist",
+    "dist-templates": "copyfiles -u 1 src/templates/**/*.html dist",
+    "dist-assets": "copyfiles -u 1 src/assets/** dist",
+    "dist-css": "node-sass --include-path node_modules/node-normalize-scss --include-path node_modules/bourbon/app/assets/stylesheets --include-path node_modules/bourbon-neat/app/assets/stylesheets --output-style compressed src/css/scss -o dist/css",
+    "dist-js": "rollup -c tools/rollup/dist.js",
+    "dist": "npm-run-all dist-*",
+    "clean-dist": "rimraf dist/*",
+    "redist": "npm-run-all clean-dist dist",
     "test": "karma start tools/karma/config.js || exit 0",
     "watch": "npm-watch"
   },
   "watch": {
     "build": {
-      "patterns": ["src/js", "src/css/scss"],
+      "patterns": [
+        "src/js",
+        "src/css/scss"
+      ],
       "extensions": "js,scss",
-      "ignore": ["src/js/bundle.js"]
+      "ignore": [
+        "src/js/bundle.js"
+      ]
     }
-  },  
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "karma": "^1.3.0",
@@ -37,10 +50,14 @@
     "node-neat": "^1.7.2",
     "node-normalize-scss": "^1.4.0",
     "node-sass": "^3.10.1",
+    "npm-run-all": "^3.1.1",
     "npm-watch": "^0.1.6",
+    "rimraf": "^2.5.4",
     "rollup": "^0.36.3",
+    "rollup-plugin-buble": "^0.14.0",
     "rollup-plugin-commonjs": "^5.0.5",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-uglify": "^1.0.1",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0"
   }
