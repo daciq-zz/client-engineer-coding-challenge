@@ -1,3 +1,5 @@
+![alt text](http://projekty.piotrdata.pl/perform/assets/images/logo.png "The Movie Db Logo")
+
 Client Engineer Coding Challenge
 ================================
 
