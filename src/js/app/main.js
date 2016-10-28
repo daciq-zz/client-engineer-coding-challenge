@@ -24,7 +24,7 @@ Router.add('/show/:?/:?', showItem);
 * @function
 * @returns {void}
 */
-function showResults(query, page){
+export function showResults(query, page){
   hideSearch()
   .then(showLoader)
   .then(function(){
@@ -44,7 +44,7 @@ function showResults(query, page){
 * @function
 * @returns {void}
 */
-function showItem(type, id){
+export function showItem(type, id){
   hideSearch()
   .then(showLoader)
   .then(function(){
@@ -67,7 +67,7 @@ function showItem(type, id){
 * @function
 * @returns {Promise}
 */
-function showLoader(){
+export function showLoader(){
   return transitionPromise(loader, loader.classList.contains('visible'), function(){
     loader.classList.add('visible');
   });
@@ -78,7 +78,7 @@ function showLoader(){
 * @function
 * @returns {Promise}
 */
-function hideLoader(){
+export function hideLoader(){
   return transitionPromise(loader, !loader.classList.contains('visible'), function(){
     loader.classList.remove('visible');
   });
@@ -89,7 +89,7 @@ function hideLoader(){
 * @function
 * @returns {Promise}
 */
-function hideSearch(){
+export function hideSearch(){
   return transitionPromise(searchBox, true, function(){
     searchBox.classList.add('closed');
   });
@@ -100,7 +100,7 @@ function hideSearch(){
 * @function
 * @returns {Promise}
 */
-function showSearch(){
+export function showSearch(){
   return transitionPromise(searchBox, true, function(){
     searchBox.classList.remove('closed');
   });
@@ -114,7 +114,7 @@ function showSearch(){
 * @param {function} trigger - function to call on transition end
 * @returns {Promise}
 */
-function transitionPromise(el, condition, trigger){
+export function transitionPromise(el, condition, trigger){
   return new Promise(function(resolve, reject){
     if(condition){
       resolve();
@@ -137,7 +137,7 @@ function transitionPromise(el, condition, trigger){
 * @param {object} params - POJO object with property:value pairs
 * @returns {Promise}
 */
-function theMovieDbPromise(command, params){
+export function theMovieDbPromise(command, params){
   return new Promise(function(resolve, reject){
     movieDbClient.callCommand(command, params, function(data){
       resolve(data);
@@ -155,7 +155,7 @@ function theMovieDbPromise(command, params){
 * @param {function} fnc - function to handle Promise
 * @returns {Promise}
 */
-function buildContentPromise(loadTemplates = [], data, fnc){
+export function buildContentPromise(loadTemplates = [], data, fnc){
   return new Promise(function(resolve, reject){
     var toLoad = [];
 
@@ -181,7 +181,7 @@ function buildContentPromise(loadTemplates = [], data, fnc){
 * @param {object} url - url for template
 * @returns {Promise}
 */
-function loadTemplatePromise(url){
+export function loadTemplatePromise(url){
   return new Promise(function(resolve, reject){
     var request;
 
@@ -207,7 +207,7 @@ function loadTemplatePromise(url){
 * @function
 * @returns {Promise}
 */
-function loadInitialData(){
+export function loadInitialData(){
   return new Promise(function(resolve, reject){
     Promise.all([
       theMovieDbPromise(['configuration'], {}),
@@ -233,7 +233,7 @@ function loadInitialData(){
 * @param {object} parent - html parent element
 * @returns {Promise}
 */
-function loadImages(parent){
+export function loadImages(parent){
   var imgs = parent.querySelectorAll('img');
 
   return new Promise(function(resolve, reject){
@@ -253,7 +253,7 @@ function loadImages(parent){
 * @param {object} img - html image element
 * @returns {Promise}
 */
-function loadImagePromise(img){
+export function loadImagePromise(img){
   return new Promise(function(resolve, reject){
     if(img.complete && img.naturalWidth > 0){
       resolve(img);
@@ -277,7 +277,7 @@ function loadImagePromise(img){
 * @param {number} page - results page number
 * @returns {Promise}
 */
-function performSearch(query, page){
+export function performSearch(query, page){
   return theMovieDbPromise(['search', 'multi'], {
           query: query,
           page: (page)?page:1
@@ -299,7 +299,7 @@ function performSearch(query, page){
 * @param {number} id - movie or tv series movie db identifier
 * @returns {Promise}
 */
-function performFetchInfo(type, id){
+export function performFetchInfo(type, id){
   return new Promise(function(resolve, reject){
     Promise.all([
       theMovieDbPromise([type, id], {
@@ -325,7 +325,7 @@ function performFetchInfo(type, id){
 * @param {object} data - data for template functions
 * @returns {void}
 */
-function buildResults(data){
+export function buildResults(data){
   return buildContentPromise(
       [
         'templates/results/body.html',
@@ -345,7 +345,7 @@ function buildResults(data){
 * @param {object} data - data for template functions
 * @returns {void}
 */
-function buildNothingFound(data){
+export function buildNothingFound(data){
    return buildContentPromise(
      [
        'templates/results/nothing.html'
@@ -361,7 +361,7 @@ function buildNothingFound(data){
 * @param {object} data - data for template functions
 * @returns {void}
 */
-function buildMovieInfo(data){
+export function buildMovieInfo(data){
    return buildContentPromise(
      [
        'templates/show/movie.html',
@@ -378,7 +378,7 @@ function buildMovieInfo(data){
 * @param {object} data - data for template functions
 * @returns {void}
 */
-function buildTvInfo(data){
+export function buildTvInfo(data){
    return buildContentPromise(
      [
        'templates/show/tv.html',
@@ -396,7 +396,7 @@ function buildTvInfo(data){
 * @param {Array} templates - template functions to render html
 * @returns {void}
 */
-function renderResults(data, templates){
+export function renderResults(data, templates){
   var body = templates[0],
       parts = {
         movie: templates[1],
@@ -446,7 +446,7 @@ function renderResults(data, templates){
 * @param {Array} templates - template functions to render html
 * @returns {void}
 */
-function renderMovieInfo(data, templates){
+export function renderMovieInfo(data, templates){
   var template = templates[0];
 
   insertContent(template(
@@ -475,7 +475,7 @@ function renderMovieInfo(data, templates){
 * @param {Array} templates - template functions to render html
 * @returns {void}
 */
-function renderTvInfo(data, templates){
+export function renderTvInfo(data, templates){
   var template = templates[0];
 
   insertContent(template(
@@ -504,7 +504,7 @@ function renderTvInfo(data, templates){
 * @param {Array} templates - template functions to render html
 * @returns {void}
 */
-function renderNothingFound(data, templates){
+export function renderNothingFound(data, templates){
   var nothing = templates[0];
 
   insertContent(nothing());
@@ -516,7 +516,7 @@ function renderNothingFound(data, templates){
 * @param {string} html - html string to insert in contentBox
 * @returns {void}
 */
-function insertContent(html){
+export function insertContent(html){
   contentBox.innerHTML = html;
   document.getElementById('site-content').scrollTop = 0;
 }
@@ -527,7 +527,7 @@ function insertContent(html){
 * @param {object} e - form submit event object
 * @returns {void}
 */
-function onFormSubmit(e){
+export function onFormSubmit(e){
   var input = searchForm.querySelector('[type="search"]');
 
   e.preventDefault();
@@ -544,7 +544,7 @@ function onFormSubmit(e){
 * @param {string} size - movie db image size identifier
 * @returns {string}
 */
-function getPosterLink(path, size){
+export function getPosterLink(path, size){
   if(!path){
     return false;
   }
@@ -559,7 +559,7 @@ function getPosterLink(path, size){
 * @param {string} size - movie db image size identifier
 * @returns {string}
 */
-function getPosterImg(path, size){
+export function getPosterImg(path, size){
   var poster = getPosterLink(path, size);
 
   if(!poster){
@@ -576,7 +576,7 @@ function getPosterImg(path, size){
 * @param {number} id - genre id
 * @returns {string}
 */
-function getGenre(type, id){
+export function getGenre(type, id){
   var filtered = genres[type].filter(function(item){
       return item.id === id;
   });
@@ -595,7 +595,7 @@ function getGenre(type, id){
 * @param {number} pages - Number of pages
 * @returns {string}
 */
-function getPaginationLinks(base, pages){
+export function getPaginationLinks(base, pages){
   var links = '';
 
   if(pages <= 1){
@@ -616,7 +616,7 @@ function getPaginationLinks(base, pages){
 * @param {function} template Function for rendering html output
 * @returns {string}
 */
-function getCast(data, template){
+export function getCast(data, template){
   var content = '';
 
   data.slice(0,10).forEach(function(item){
@@ -636,7 +636,7 @@ function getCast(data, template){
 * @function
 * @returns {void}
 */
-function init(){
+export function init(){
   var apiKey = document.body.dataset['apiKey'],
       querySelector = document.querySelector;
 
@@ -661,7 +661,7 @@ function init(){
 * @function
 * @returns {void}
 */
-function start(){
+export function start(){
   loadInitialData().then(
     function(){
         Router.trigger();
