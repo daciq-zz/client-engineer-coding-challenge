@@ -288,7 +288,7 @@ a{
 	@include display(flex);
 	@include align-items(center);
 
-	.results-item-rating{
+	& > div:not(:last-child){
 		margin-bottom: rem(6);
 	}
 }
