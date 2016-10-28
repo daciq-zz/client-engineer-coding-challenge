@@ -42,5 +42,5 @@ npm run build
 
 Create distribution version (all distribution files reside in **dist** directory)
 ```bash
-npm run redist
+npm run dist
 ```
