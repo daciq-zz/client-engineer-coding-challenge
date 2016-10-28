@@ -1,4 +1,6 @@
 {
   "source": "./src/js",
-  "destination": "./docs"
+  "destination": "./docs",
+  "includes": ["\\.(js|es6)$"],
+  "excludes": ["bundle\\.js$"]
 }
