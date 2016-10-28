@@ -7,6 +7,7 @@ export default {
   entry: 'src/js/app/main.js',
   sourceMap: 'inline',
   format: 'umd',
+  moduleName: 'ClientEngineerCodingChallenge',
   plugins: [ nodeResolve(), convertCJS(), buble(), uglify() ],
   dest: 'dist/js/bundle.js'
 };
