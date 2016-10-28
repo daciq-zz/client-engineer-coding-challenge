@@ -17,6 +17,13 @@ Router.add('/search/:?', showResults);
 Router.add('/search/:?/:?', showResults);
 Router.add('/show/:?/:?', showItem);
 
+/**
+* Displays search results
+* @param {object} query - POJO object with property:value pairs
+* @param {number} page - results page number
+* @function
+* @returns {void}
+*/
 function showResults(query, page){
   hideSearch()
   .then(showLoader)
@@ -30,6 +37,13 @@ function showResults(query, page){
   .then(hideLoader);
 }
 
+/**
+* Displays movie or tv series info
+* @param {string} type - movie or tv
+* @param {number} id - movie or tv series movie db identifier
+* @function
+* @returns {void}
+*/
 function showItem(type, id){
   hideSearch()
   .then(showLoader)
@@ -48,24 +62,44 @@ function showItem(type, id){
   .then(hideLoader);
 }
 
+/**
+* Displays loader
+* @function
+* @returns {Promise}
+*/
 function showLoader(){
   return transitionPromise(loader, loader.classList.contains('visible'), function(){
     loader.classList.add('visible');
   });
 }
 
+/**
+* Hides loader
+* @function
+* @returns {Promise}
+*/
 function hideLoader(){
   return transitionPromise(loader, !loader.classList.contains('visible'), function(){
     loader.classList.remove('visible');
   });
 }
 
+/**
+* Hides search form
+* @function
+* @returns {Promise}
+*/
 function hideSearch(){
   return transitionPromise(searchBox, true, function(){
     searchBox.classList.add('closed');
   });
 }
 
+/**
+* Displays search form
+* @function
+* @returns {Promise}
+*/
 function showSearch(){
   return transitionPromise(searchBox, true, function(){
     searchBox.classList.remove('closed');
