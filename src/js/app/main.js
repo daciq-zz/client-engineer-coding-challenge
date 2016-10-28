@@ -72,7 +72,15 @@ function showSearch(){
   });
 }
 
-function transitionPromise(el, condition,trigger){
+/**
+* Loads data from movies db
+* @function
+* @param {object} el - element to listen transtion end event
+* @param {boolean} condition - is in state after transition
+* @param {function} trigger - function to call on transition end
+* @returns {Promise}
+*/
+function transitionPromise(el, condition, trigger){
   return new Promise(function(resolve, reject){
     if(condition){
       resolve();
@@ -88,6 +96,13 @@ function transitionPromise(el, condition,trigger){
   });
 }
 
+/**
+* Loads data from movies db
+* @function
+* @param {array} command - array of movie db command path chunks
+* @param {object} params - POJO object with property:value pairs
+* @returns {Promise}
+*/
 function theMovieDbPromise(command, params){
   return new Promise(function(resolve, reject){
     movieDbClient.callCommand(command, params, function(data){
@@ -98,6 +113,14 @@ function theMovieDbPromise(command, params){
   });
 }
 
+/**
+* Returns Promise to build content
+* @function
+* @param {array} loadTemplates - array of template urls to load
+* @param {object} data - data to build contetn
+* @param {function} fnc - function to handle Promise
+* @returns {Promise}
+*/
 function buildContentPromise(loadTemplates = [], data, fnc){
   return new Promise(function(resolve, reject){
     var toLoad = [];
@@ -118,6 +141,12 @@ function buildContentPromise(loadTemplates = [], data, fnc){
   });
 }
 
+/**
+* Loads html template
+* @function
+* @param {object} url - url for template
+* @returns {Promise}
+*/
 function loadTemplatePromise(url){
   return new Promise(function(resolve, reject){
     var request;
@@ -139,6 +168,11 @@ function loadTemplatePromise(url){
   });
 }
 
+/**
+* Loads all base application data
+* @function
+* @returns {Promise}
+*/
 function loadInitialData(){
   return new Promise(function(resolve, reject){
     Promise.all([
@@ -159,6 +193,12 @@ function loadInitialData(){
   });
 }
 
+/**
+* Loads all images from parent eleemnt
+* @function
+* @param {object} parent - html parent element
+* @returns {Promise}
+*/
 function loadImages(parent){
   var imgs = parent.querySelectorAll('img');
 
@@ -173,6 +213,12 @@ function loadImages(parent){
   });
 }
 
+/**
+* Loads image
+* @function
+* @param {object} img - html image element
+* @returns {Promise}
+*/
 function loadImagePromise(img){
   return new Promise(function(resolve, reject){
     if(img.complete && img.naturalWidth > 0){
@@ -190,6 +236,13 @@ function loadImagePromise(img){
   });
 }
 
+/**
+* Performs multi search in movie db
+* @function
+* @param {object} query - POJO object with property:value pairs
+* @param {number} page - results page number
+* @returns {Promise}
+*/
 function performSearch(query, page){
   return theMovieDbPromise(['search', 'multi'], {
           query: query,
@@ -205,6 +258,13 @@ function performSearch(query, page){
   });
 }
 
+/**
+* Gets info for tv series or movie
+* @function
+* @param {string} type - movie or tv
+* @param {number} id - movie or tv series movie db identifier
+* @returns {Promise}
+*/
 function performFetchInfo(type, id){
   return new Promise(function(resolve, reject){
     Promise.all([
@@ -225,6 +285,12 @@ function performFetchInfo(type, id){
   });
 }
 
+/**
+* Loads templates and builds displayed content for search results list
+* @function
+* @param {object} data - data for template functions
+* @returns {void}
+*/
 function buildResults(data){
   return buildContentPromise(
       [
@@ -239,6 +305,12 @@ function buildResults(data){
   );
 }
 
+/**
+* Loads templates and builds displayed content for 'nothing found' info
+* @function
+* @param {object} data - data for template functions
+* @returns {void}
+*/
 function buildNothingFound(data){
    return buildContentPromise(
      [
@@ -249,6 +321,12 @@ function buildNothingFound(data){
    );
 }
 
+/**
+* Loads templates and builds displayed content for movie info
+* @function
+* @param {object} data - data for template functions
+* @returns {void}
+*/
 function buildMovieInfo(data){
    return buildContentPromise(
      [
@@ -260,6 +338,12 @@ function buildMovieInfo(data){
    );
 }
 
+/**
+* Loads templates and builds displayed content for tv series info
+* @function
+* @param {object} data - data for template functions
+* @returns {void}
+*/
 function buildTvInfo(data){
    return buildContentPromise(
      [
@@ -271,6 +355,13 @@ function buildTvInfo(data){
    );
 }
 
+/**
+* Inserts search results in contentBox
+* @function
+* @param {object} data - data for template functions
+* @param {Array} templates - template functions to render html
+* @returns {void}
+*/
 function renderResults(data, templates){
   var body = templates[0],
       parts = {
@@ -314,6 +405,13 @@ function renderResults(data, templates){
   }));
 }
 
+/**
+* Inserts movie info in contentBox
+* @function
+* @param {object} data - data for template functions
+* @param {Array} templates - template functions to render html
+* @returns {void}
+*/
 function renderMovieInfo(data, templates){
   var template = templates[0];
 
@@ -336,6 +434,13 @@ function renderMovieInfo(data, templates){
   ));
 }
 
+/**
+* Inserts tv series info in contentBox
+* @function
+* @param {object} data - data for template functions
+* @param {Array} templates - template functions to render html
+* @returns {void}
+*/
 function renderTvInfo(data, templates){
   var template = templates[0];
 
@@ -358,17 +463,36 @@ function renderTvInfo(data, templates){
   ));
 }
 
+/**
+* Inserts 'Nothing found' in contentBox
+* @function
+* @param {object} data - data for template functions
+* @param {Array} templates - template functions to render html
+* @returns {void}
+*/
 function renderNothingFound(data, templates){
   var nothing = templates[0];
 
   insertContent(nothing());
 }
 
+/**
+* Inserts html in contentBox
+* @function
+* @param {string} html - html string to insert in contentBox
+* @returns {void}
+*/
 function insertContent(html){
   contentBox.innerHTML = html;
   document.getElementById('site-content').scrollTop = 0;
 }
 
+/**
+* Listens onSubmit event
+* @function
+* @param {object} e - form submit event object
+* @returns {void}
+*/
 function onFormSubmit(e){
   var input = searchForm.querySelector('[type="search"]');
 
@@ -379,6 +503,13 @@ function onFormSubmit(e){
   }
 }
 
+/**
+* Returns url for poster image
+* @function
+* @param {string} path - movie db image path
+* @param {string} size - movie db image size identifier
+* @returns {string}
+*/
 function getPosterLink(path, size){
   if(!path){
     return false;
@@ -387,6 +518,13 @@ function getPosterLink(path, size){
   return configuration.images.base_url+size+path;
 }
 
+/**
+* Returns html for poster image
+* @function
+* @param {string} path - movie db image path
+* @param {string} size - movie db image size identifier
+* @returns {string}
+*/
 function getPosterImg(path, size){
   var poster = getPosterLink(path, size);
 
@@ -397,6 +535,13 @@ function getPosterImg(path, size){
   return '<img src="'+poster+'" alt="" />';
 }
 
+/**
+* Returns movie or tv genre based on id
+* @function
+* @param {string} type - movie or tv
+* @param {number} id - genre id
+* @returns {string}
+*/
 function getGenre(type, id){
   var filtered = genres[type].filter(function(item){
       return item.id === id;
@@ -409,6 +554,13 @@ function getGenre(type, id){
   }
 }
 
+/**
+* Returns html for pagination links
+* @function
+* @param {string} base - Base url
+* @param {number} pages - Number of pages
+* @returns {string}
+*/
 function getPaginationLinks(base, pages){
   var links = '';
 
@@ -423,6 +575,13 @@ function getPaginationLinks(base, pages){
   return links;
 }
 
+/**
+* Returns html for displaying cast and crew members
+* @function
+* @param {object} data POJO object with property:value pairs
+* @param {function} template Function for rendering html output
+* @returns {string}
+*/
 function getCast(data, template){
   var content = '';
 
@@ -438,6 +597,11 @@ function getCast(data, template){
   return content;
 }
 
+/**
+* Inits variables and event listeners
+* @function
+* @returns {void}
+*/
 function init(){
   var apiKey = document.body.dataset['apiKey'],
       querySelector = document.querySelector;
@@ -458,6 +622,11 @@ function init(){
   searchForm.addEventListener("submit", onFormSubmit);
 }
 
+/**
+* Starts application after window load
+* @function
+* @returns {void}
+*/
 function start(){
   loadInitialData().then(
     function(){
